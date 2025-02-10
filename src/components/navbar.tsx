@@ -9,12 +9,14 @@ export default function Navbar() {
     <nav className="bg-gray-900 text-white p-4 shadow-lg">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
-        <div className="text-xl font-bold">Devault</div>
+        <div className="text-xl font-bold">
+        <a href="/home" className="hover:text-gray-400">Devault</a>
+        </div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6">
-          <a href="#" className="hover:text-gray-400">Projects</a>
-          <a href="#" className="hover:text-gray-400">Community</a>
+          <a href="/projects" className="hover:text-gray-400">Projects</a>
+          <a href="/community" className="hover:text-gray-400">Community</a>
         </div>
 
         {/* Search Bar & Profile */}
