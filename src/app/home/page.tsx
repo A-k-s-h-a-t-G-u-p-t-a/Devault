@@ -2,7 +2,6 @@ import ProjectCard from '../components/projectcard';
 import Navbar from '../components/navbar';
 export default function Home() {
     return <div>
-        <Navbar />
         <ProjectCard
          title="DeFi Protocol"
          description="Decentralized finance protocol for crypto trading"
