@@ -1,14 +1,3 @@
-// how to use it :
-// import ProjectCard from '../components/projectcard';
-// <ProjectCard
-//   title="DeFi Protocol"
-//   description="Decentralized finance protocol for crypto trading"
-//   tags={["React", "Solidity", "Node.js"]}
-//   funding="5.0"
-//   issues={12}
-//   progress={75}
-// />
-
 "use client"
 import { useState } from "react";
 
@@ -16,49 +5,36 @@ interface ProjectCardProps {
   title: string;
   description: string;
   tags: string[];
-  funding: string;
-  issues: number;
   progress: number;
 }
 
-export default function ProjectCard({
+export default function Hoverboard({
   title,
   description,
   tags,
-  funding,
-  issues,
   progress,
 }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div
-      className={`relative bg-gray-900 text-white p-6 rounded-2xl shadow-lg transform transition-all w-80 h-72 mx-auto ${
-        isHovered ? "scale-105 shadow-2xl" : "scale-100 shadow-lg"
-      }`}
+    <div className={`relative bg-gray-900 text-white p-6 rounded-2xl shadow-lg transform transition-all w-70 max-w-2xl h-15 mx-auto ${isHovered ? "scale-105 shadow-2xl" : "scale-100 shadow-lg"}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Project Thumbnail */}
-      <div className="w-14 h-14 bg-gray-700 rounded-lg mb-4"></div>
-
-      {/* Title & Description */}
-      <h3 className="text-lg font-bold">{title}</h3>
-      <p className="text-gray-400 text-sm mb-3">{description}</p>
-
-      {/* Tags */}
+      {/* Project Thumbnail & Title */}
+      <div className="flex items-center gap-4 mb-4">
+        <div className="w-16 h-16 bg-gray-700 rounded-lg"></div>
+        <h3 className="text-lg font-bold">{title}</h3>
+      </div>
+      
+      {/* Description & Tags */}
+      <p className="text-gray-400 text-sm mb-3 truncate">{description}</p>
       <div className="flex flex-wrap gap-2 mb-3">
         {tags.map((tag, index) => (
           <span key={index} className="bg-gray-800 text-gray-300 px-3 py-1 rounded-lg text-xs">
             {tag}
           </span>
         ))}
-      </div>
-
-      {/* Funding & Issues */}
-      <div className="flex justify-between text-sm mb-3">
-        <span>{funding} ETH</span>
-        <span>{issues} Open Issues</span>
       </div>
 
       {/* Progress Bar */}
@@ -79,5 +55,3 @@ export default function ProjectCard({
     </div>
   );
 }
-
-
