@@ -1,0 +1,12 @@
+import React from 'react';
+import LoginNextAuth from '@/components/login-form-nextauth';
+function Signin(){
+    return (
+        <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+          <div className="w-full max-w-sm">
+            <LoginNextAuth />
+          </div>
+        </div>
+      )
+}
+export default Signin;

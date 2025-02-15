@@ -1,4 +1,6 @@
+"use client";
 import Image from "next/image";
+import { signIn, signOut } from "next-auth/react"
 
 export default function Home() {
   return (
@@ -12,6 +14,8 @@ export default function Home() {
           height={38}
           priority
         />
+        <button onClick={() => signIn()}>Signin</button>
+        <button onClick={() => signOut()}>Sign out</button>
         <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
           <li className="mb-2">
             Get started by editing{" "}
