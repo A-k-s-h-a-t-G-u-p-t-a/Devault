@@ -16,13 +16,13 @@ datasource db {
 
 model User {
   id           String    @id @default(uuid()) @map("_id")
-  username     String
+  username     String?
   email        String    @unique
   passwordHash String
   githubId     String?
-  role         String
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  role         String?
+  createdAt    DateTime?  @default(now())
+  updatedAt    DateTime?  @updatedAt
 
   projects     Project[]
 }
