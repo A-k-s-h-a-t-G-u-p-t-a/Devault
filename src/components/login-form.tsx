@@ -14,12 +14,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/router";
+import { signIn } from "next-auth/react";
 
 export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,8 +81,8 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Signing Up..." : "Sign Up"}
               </Button>
-              <Button variant="outline" className="w-full">
-                Login with Google
+              <Button type="button" variant="outline" className="w-full" onClick={() => signIn("google",)}>
+                              Sign In with Google
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">

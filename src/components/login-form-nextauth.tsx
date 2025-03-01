@@ -32,6 +32,7 @@ export default function LoginNextAuth({ className, ...props }: React.ComponentPr
       password,
       redirect: false, // Prevent automatic redirection
     });
+    console.log(result);
 
     if (result?.error) {
       setError(result.error);
@@ -82,7 +83,7 @@ export default function LoginNextAuth({ className, ...props }: React.ComponentPr
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Signing In..." : "Sign In"}
               </Button>
-              <Button variant="outline" className="w-full" onClick={() => signIn("google")}>
+              <Button type="button" variant="outline" className="w-full" onClick={() => signIn("google",)}>
                 Sign In with Google
               </Button>
             </div>
