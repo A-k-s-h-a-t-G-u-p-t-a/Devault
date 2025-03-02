@@ -1,6 +1,6 @@
 "use client"; // Required if using Next.js App Router and client features
 
-import Hoverboard from "./crowdfunding";
+import Hoverboard from "./campaigns";
 import ProjectCard from "./project-card";
 
 export default function Home() {

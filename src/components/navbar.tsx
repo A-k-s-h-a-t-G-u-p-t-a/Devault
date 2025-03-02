@@ -1,7 +1,8 @@
 "use client"
 import { useState } from "react";
 import { Search, Menu, User } from "lucide-react";
-
+import { ConnectButton } from "thirdweb/react";
+import { client } from "@/lib/client";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -32,6 +33,7 @@ export default function Navbar() {
           <a href="/dashboard" className="hover:text-gray-400">
             <User size={24} />
           </a>
+          <ConnectButton client={client}/>
         </div>
 
         {/* Mobile Menu Button */}
@@ -56,6 +58,9 @@ export default function Navbar() {
           <a href="/dashboard" className="hover:text-gray-400">
             <User size={24} />
           </a>
+          <div>
+            <ConnectButton client={client}/>
+          </div>
         </div>
       )}
     </nav>
