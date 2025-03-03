@@ -1,59 +1,52 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id           String    @id @default(uuid()) @map("_id")
-  username     String
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  username     String?
   email        String    @unique
   passwordHash String
   githubId     String?
-  role         String
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  role         String?
+  createdAt    DateTime? @default(now())
+  updatedAt    DateTime? @updatedAt
 
-  projects     Project[]
+  projects     Project[] @relation("UserProjects") 
 }
 
 model Project {
-  id             String    @id @default(uuid()) @map("_id")
-  ownerId        String
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  ownerId        String   @db.ObjectId
   title          String
   description    String?
   githubRepoId   String?
   githubRepoUrl  String?
   fundingGoal    Float?
-  currentFunding Float?    @default(0)
-  status         String    @default("active")
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  currentFunding Float?   @default(0)
+  status         String   @default("active")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
-  owner          User      @relation(fields: [ownerId], references: [id])
-  issues         Issue[]
+  owner          User     @relation(fields: [ownerId], references: [id], name: "UserProjects")
+  issues         Issue[]  @relation("ProjectIssues") 
 }
 
 model Issue {
-  id            String    @id @default(uuid()) @map("_id")
-  projectId     String
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  projectId     String   @db.ObjectId
   githubIssueId String?
   title         String
   description   String?
   bountyAmount  Float?
-  status        String    @default("open")
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  status        String   @default("open")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  project       Project   @relation(fields: [projectId], references: [id])
+  project       Project  @relation(fields: [projectId], references: [id], name: "ProjectIssues")
 }

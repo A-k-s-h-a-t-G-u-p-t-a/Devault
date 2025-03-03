@@ -1,3 +1,4 @@
+'use client'
 import { prepareContractCall, ThirdwebContract } from "thirdweb";
 import { TransactionButton, useActiveAccount } from "thirdweb/react";
 import { useEffect, useState } from "react";

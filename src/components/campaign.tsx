@@ -1,3 +1,4 @@
+'use client'
 import { client } from "@/lib/client";
 import { defineChain, getContract } from "thirdweb";
 import { sepolia } from "thirdweb/chains";

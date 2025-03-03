@@ -53,14 +53,13 @@ export default function DashboardPage() {
             {isModalOpen && (
                 <CreateCampaignModal
                     setIsModalOpen={setIsModalOpen}
-                    refetch={refetch}
                 />
             )}
         </div>
     )
 }
 
-const CreateCampaignModal = ({ setIsModalOpen, refetch }) => {
+const CreateCampaignModal = ({ setIsModalOpen }: { setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const account = useActiveAccount();
     const [isDeployingContract, setIsDeployingContract] = useState(false);
     const [campaignName, setCampaignName] = useState("");

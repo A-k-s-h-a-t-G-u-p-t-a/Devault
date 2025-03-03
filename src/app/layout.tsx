@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
-import { ClerkProvider } from "@clerk/nextjs";
-import {ThirdwebProvider} from "thirdweb/react";
+import { ClerkProvider, SignedIn, SignedOut, SignInButton, SignOutButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { Providers } from "./provider"; // Import the new Providers component
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,21 +22,27 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ThirdwebProvider>
-      <ClerkProvider>
-        <html lang="en">
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-          >
-            <Navbar /> {/* Add the Navbar component here */}
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <Providers> {/* Move providers here */}
+            <Navbar />
+            <SignedOut>
+              <SignInButton />
+              <SignUpButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+            
             <main>{children}</main>
-          </body>
-        </html>
-      </ClerkProvider>
-    </ThirdwebProvider>
+          </Providers>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
