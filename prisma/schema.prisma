@@ -1,7 +1,8 @@
 generator client {
   provider = "prisma-client-js"
 }
-
+//npx prisma db push
+//npx prisma generate 
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
@@ -11,6 +12,7 @@ model User {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
   username     String?
   email        String    @unique
+  photo       String?     
   passwordHash String
   githubId     String?
   role         String?

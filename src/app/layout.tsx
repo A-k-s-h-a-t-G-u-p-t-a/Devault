@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
-import { ClerkProvider, SignedIn, SignedOut, SignInButton, SignOutButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
+import { ClerkLoaded, ClerkLoading, ClerkProvider} from "@clerk/nextjs";
 import { Providers } from "./provider"; // Import the new Providers component
 
 const geistSans = Geist({
@@ -24,22 +25,20 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider appearance={{ baseTheme: dark}}>
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           <Providers> {/* Move providers here */}
-            <Navbar />
-            <SignedOut>
-              <SignInButton />
-              <SignUpButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-            
+            <ClerkLoading>
+              <div className="flex items-center justify-center h-screen bg-gray-900">
+                <div className="text-white text-2xl font-bold">Loading...</div>
+              </div>
+            </ClerkLoading>
+            <ClerkLoaded>
+              <Navbar />  
             <main>{children}</main>
+            </ClerkLoaded>
           </Providers>
         </body>
       </html>

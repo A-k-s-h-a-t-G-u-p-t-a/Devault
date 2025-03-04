@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.12.2",
+    "@clerk/themes": "^2.2.20",
     "@prisma/client": "^6.3.1",
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.2",
@@ -29,6 +30,7 @@
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
     "recharts": "^2.15.1",
+    "svix": "^1.61.1",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
     "thirdweb": "^5.88.4"
