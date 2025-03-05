@@ -10,6 +10,7 @@ datasource db {
 
 model User {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  clerkId      String    @unique
   username     String?
   email        String    @unique
   photo       String?     
@@ -24,7 +25,7 @@ model User {
 
 model Project {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  ownerId        String   @db.ObjectId
+  ownerId        String   
   title          String
   description    String?
   githubRepoId   String?
@@ -35,7 +36,7 @@ model Project {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  owner          User     @relation(fields: [ownerId], references: [id], name: "UserProjects")
+  owner          User     @relation(fields: [ownerId], references: [clerkId], name: "UserProjects")
   issues         Issue[]  @relation("ProjectIssues") 
 }
 
