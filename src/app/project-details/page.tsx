@@ -28,6 +28,7 @@ export default function ProjectPage() {
     <div className="min-h-screen bg-black">
       <ProjectHeader />
       <main className="container px-4 py-6 md:py-8 space-y-8">
+        <ProjectHeader />
         <FundingStats amountRaised={75000} fundingGoal={100000} roundStatus="open" equityOffered={10} />
         <IssuesCard issues={SAMPLE_ISSUES} />
       </main>
