@@ -15,10 +15,7 @@ model User {
   photo       String?     
   passwordHash String
   githubId     String?
-  role         String?
-  createdAt    DateTime? @default(now())
-  updatedAt    DateTime? @updatedAt
-
+  role         Boolean?
   projects     Project[] @relation("UserProjects") 
 }
 

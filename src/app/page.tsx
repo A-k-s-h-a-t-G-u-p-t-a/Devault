@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { signIn, signOut } from "next-auth/react"
+import { Link } from "lucide-react";
 
 export default function Home() {
   return (
@@ -99,6 +100,8 @@ export default function Home() {
           />
           Go to nextjs.org →
         </a>
+        <Link href="/create-token">Create Token</Link>
+        <Link href="/token-details/bdqbdq283">Token Details</Link>
       </footer>
     </div>
   );
