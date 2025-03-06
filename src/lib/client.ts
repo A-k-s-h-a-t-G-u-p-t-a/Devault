@@ -20,5 +20,5 @@ import {
   export const contract2 = getContract({
     client,
     chain: defineChain(11155111),
-    address: "0x3a77b4989AB5F3EfB9Fc4fed0978ca0b5e10A5a0",
+    address: "0xBb0F165109dAA2007FbeeE6b4a4785984C919E56",
   });

@@ -10,7 +10,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-gray-900 text-white p-4 shadow-lg fixed w-full z-50">
+    <nav className="bg-gray-900 text-white p-4 shadow-lg sticky top-0 w-full z-50">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="text-2xl font-extrabold tracking-wide">
