@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useAuth } from "@clerk/nextjs";
+import { useActiveAccount } from "thirdweb/react";
 
 function extractOwnerRepo(url: string) {
   try {
@@ -22,7 +23,7 @@ export default function ProjectForm() {
   const { user } = useUser();
   const { getToken } = useAuth();
   const router = useRouter();
-  
+  const account = useActiveAccount();
   const [formData, setFormData] = useState({
     name: "",
     repoLink: "",
@@ -60,7 +61,7 @@ export default function ProjectForm() {
 
         const { owner, repo } = extractOwnerRepo(formData.repoLink);
         if (owner && repo) {
-          router.push(`/project-details/${owner}/${repo}`);
+          router.push(`/createcampaign/${account}`);
         }
       } else {
         throw new Error(`Failed to submit project. Status: ${response.status}`);
