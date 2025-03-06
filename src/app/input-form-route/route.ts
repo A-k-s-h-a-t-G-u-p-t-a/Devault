@@ -13,7 +13,6 @@ export async function POST(req:any) {
     }
 
     const { name, repoLink, description } = await req.json(); // Parse request body
-    console.log(`${userId} ${name} ${repoLink}  ${description}`);
 
     // Store project in the database
     await prisma.project.create({
