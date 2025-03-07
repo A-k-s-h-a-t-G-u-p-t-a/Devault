@@ -1,42 +1,45 @@
 generator client {
   provider = "prisma-client-js"
 }
-//npx prisma db push
-//npx prisma generate 
+
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  clerkId      String    @unique
-  username     String?
-  email        String    @unique
-  photo       String?     
-  passwordHash String
-  githubId     String?
-  role         String?
-  createdAt    DateTime? @default(now())
-  updatedAt    DateTime? @updatedAt
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  clerkId        String    @unique
+  username       String    @unique // Required for GitHub API fetch
+  email          String?   @unique
+  githubId       String?   @unique
+  githubAvatarUrl String?  // Store GitHub avatar
+  photo          String?
+  passwordHash   String
+  role           String?
+  createdAt      DateTime? @default(now())
+  updatedAt      DateTime? @updatedAt
 
-  projects     Project[] @relation("UserProjects") 
+  projects       Project[] @relation("UserProjects")
 }
 
 model Project {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  ownerId        String   
+  ownerId        String   @db.ObjectId
   title          String
   description    String?
-  githubRepoId   String?
+  githubRepoId   String?  @unique // Ensure unique repo storage
   githubRepoUrl  String?
+  stars          Int?     @default(0) // Store GitHub repo stars
+  forks          Int?     @default(0) // Store GitHub repo forks
+  watchers       Int?     @default(0) // Store GitHub repo watchers
   fundingGoal    Float?
   currentFunding Float?   @default(0)
   status         String   @default("active")
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  owner          User     @relation(fields: [ownerId], references: [clerkId], name: "UserProjects")
+  owner          User     @relation(fields: [ownerId], references: [id], name: "UserProjects")
   issues         Issue[]  @relation("ProjectIssues") 
 }
 
