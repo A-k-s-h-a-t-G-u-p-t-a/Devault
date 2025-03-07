@@ -1,105 +1,122 @@
-"use client";
-import Image from "next/image";
-import { signIn, signOut } from "next-auth/react"
+"use client"
+
+import { useState, useEffect } from "react"
+import { ChevronRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Navbar from "@/components/navbar"
+import ProjectCard from "../components/project-card"
+import FeaturesSection from "../components/features-section"
+import HeroSection from "../components/hero-section"
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <button onClick={() => signIn()}>Signin</button>
-        <button onClick={() => signOut()}>Sign out</button>
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [scrolled, setScrolled] = useState(false)
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-[#0a0a1a] to-[#0f0f2d] text-white">
+
+      <HeroSection />
+
+      <section className="relative z-10 px-4 py-16 md:py-24 max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Trending Projects</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Discover innovative projects that are currently seeking funding and support from the community.
+          </p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <ProjectCard
+            name="Neural Network API"
+            raised={75000}
+            goal={100000}
+            equity={10}
+            category="AI & Machine Learning"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+          <ProjectCard
+            name="Quantum Computing OS"
+            raised={250000}
+            goal={500000}
+            equity={8}
+            category="Quantum Technology"
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+          <ProjectCard name="Blockchain Security" raised={120000} goal={200000} equity={12} category="Blockchain" />
+        </div>
+
+        <div className="mt-12 text-center">
+          <Button variant="outline" className="text-black border-gray-300 hover:bg-gray-100 py-4 text-base group">
+            View All Projects
+            <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+          </Button>
+        </div>
+      </section>
+
+      <FeaturesSection />
+
+      <section className="relative z-10 px-4 py-16 md:py-24 max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Join Our Community</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Connect with developers, investors, and innovators to collaborate on groundbreaking projects.
+          </p>
+        </div>
+
+        <div className="flex flex-col md:flex-row justify-center items-center gap-6 mt-10 text-base">
+          <Button className="w-full md:w-auto bg-purple-600 hover:bg-purple-700">Start a Project</Button>
+          <Button variant="outline" className="text-black border-gray-300 hover:bg-gray-100  py-4 text-base">
+            Become an Investor
+          </Button>
+          <Button variant="outline" className="text-black border-gray-300 hover:bg-gray-100  py-4 text-base">
+            Join Community
+          </Button>
+        </div>
+      </section>
+
+      <footer className="border-t border-gray-800 mt-16 py-12 px-4">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <h3 className="text-xl font-bold mb-4">Devault</h3>
+            <p className="text-gray-400">Empowering developers to build the future through community-driven funding.</p>
+          </div>
+          <div>
+            <h4 className="font-semibold mb-4">Platform</h4>
+            <ul className="space-y-2 text-gray-400">
+              <li>Projects</li>
+              <li>Community</li>
+              <li>Campaigns</li>
+              <li>Dashboard</li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold mb-4">Resources</h4>
+            <ul className="space-y-2 text-gray-400">
+              <li>Documentation</li>
+              <li>API</li>
+              <li>Support</li>
+              <li>Blog</li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold mb-4">Legal</h4>
+            <ul className="space-y-2 text-gray-400">
+              <li>Terms of Service</li>
+              <li>Privacy Policy</li>
+              <li>Cookie Policy</li>
+            </ul>
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-gray-800 text-center text-gray-400">
+          <p>© {new Date().getFullYear()} Devault. All rights reserved.</p>
+        </div>
       </footer>
-    </div>
-  );
+    </main>
+  )
 }
