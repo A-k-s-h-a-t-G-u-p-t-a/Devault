@@ -9,9 +9,8 @@ import { cn } from "@/lib/utils" // If using shadcn's utility for class manageme
 
 const navItems = [
   { name: "Overview", href: "/dashboard", icon: Home },
-  { name: "Issues", href: "/dashboard/issues", icon: FileText },
-  { name: "Wallet", href: "/dashboard/wallet", icon: Wallet },
-  { name: "Analytics", href: "/dashboard/analytics", icon: BarChart },
+  { name: "Wallet", href: "/token/balance", icon: Wallet },
+  { name: "Check Claims", href: "/dashboard/check-claim", icon: Wallet }
 ]
 
 const TopBar: FC = () => {

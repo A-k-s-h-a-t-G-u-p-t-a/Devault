@@ -74,44 +74,44 @@ export default function CreateToken() {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gray-900 text-white py-10">
+    <div className="flex flex-col items-center min-h-screen bg-black text-white py-10">
       {/* Token Creation Card */}
-      <Card className="w-full max-w-md p-6 bg-gray-800 rounded-2xl shadow-lg">
+      <Card className="w-full max-w-md p-6 bg-gray-900 rounded-2xl shadow-lg">
         <CardContent>
-          <h2 className="text-xl font-bold mb-4 text-center">Create a New Token</h2>
+          <h2 className="text-xl font-bold mb-4 text-center text-purple-400">Create a New Token</h2>
           <Input
             placeholder="Token Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="mb-3 bg-gray-700 text-white"
+            className="mb-3 bg-gray-800 text-white"
           />
           <Input
             placeholder="Symbol"
             value={symbol}
             onChange={(e) => setSymbol(e.target.value)}
-            className="mb-3 bg-gray-700 text-white"
+            className="mb-3 bg-gray-800 text-white"
           />
           <Input
             placeholder="Initial Supply"
             type="number"
             value={initialSupply}
             onChange={(e) => setInitialSupply(e.target.value)}
-            className="mb-3 bg-gray-700 text-white"
+            className="mb-3 bg-gray-800 text-white"
           />
-          <Button onClick={handleSubmit} disabled={loading} className="w-full bg-blue-500 hover:bg-blue-600">
+          <Button onClick={handleSubmit} disabled={loading} className="w-full bg-purple-500 hover:bg-purple-600 text-white">
             {loading ? "Creating..." : "Create Token"}
           </Button>
         </CardContent>
       </Card>
 
       {/* Token List */}
-      <div className="w-full max-w-md mt-8 p-6 bg-gray-800 rounded-2xl shadow-lg">
+      <div className="w-full max-w-md mt-8 p-6 bg-gray-900 rounded-2xl shadow-lg">
         <h2 className="text-xl font-bold mb-4 text-center">Your Tokens</h2>
         {isPending && <p className="text-gray-400 text-center">Loading tokens...</p>}
         {!isPending && alltokens?.length === 0 && <p className="text-gray-400 text-center">No tokens found.</p>}
         <ul className="space-y-2">
           {alltokens?.map((token, index) => (
-            <li key={index} className="bg-gray-700 p-2 rounded-md text-center">
+            <li key={index} className="bg-gray-800 p-2 rounded-md text-center">
               {token}
             </li>
           ))}

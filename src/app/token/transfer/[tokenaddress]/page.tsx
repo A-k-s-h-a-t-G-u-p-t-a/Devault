@@ -57,15 +57,15 @@ export default function TransferToken() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-gray-900 text-white">
-      <div className="p-6 bg-gray-800 rounded-lg shadow-lg w-96 text-center">
-        <h2 className="text-2xl font-bold mb-4 text-blue-400">Transfer Tokens</h2>
+    <div className="flex flex-col justify-center items-center h-screen bg-black text-white">
+      <div className="p-8 bg-gray-900 rounded-2xl shadow-xl w-96 text-center border border-gray-700">
+        <h2 className="text-3xl font-bold mb-6 text-purple-400">Transfer Tokens</h2>
 
         {/* Token Selection Dropdown */}
         <select
           value={selectedToken}
           onChange={(e) => setSelectedToken(e.target.value)}
-          className="w-full p-2 mb-3 bg-gray-700 text-white rounded-md"
+          className="w-full p-3 mb-4 bg-gray-800 text-white rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
         >
           {tokens.map((token) => (
             <option key={token.address} value={token.address}>
@@ -80,20 +80,20 @@ export default function TransferToken() {
           placeholder="Recipient Address"
           value={recipient}
           onChange={(e) => setRecipient(e.target.value)}
-          className="w-full p-2 mb-3 bg-gray-700 text-white rounded-md"
+          className="w-full p-3 mb-4 bg-gray-800 text-white rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
         <input
           type="number"
           placeholder="Amount"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          className="w-full p-2 mb-3 bg-gray-700 text-white rounded-md"
+          className="w-full p-3 mb-4 bg-gray-800 text-white rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
 
         {/* Transfer Button */}
         <button
           onClick={handleTransfer}
-          className="w-full bg-blue-500 px-4 py-2 rounded-md font-semibold hover:bg-blue-600 transition"
+          className="w-full bg-purple-600 px-5 py-3 rounded-lg font-semibold hover:bg-purple-700 transition shadow-lg"
         >
           Transfer
         </button>

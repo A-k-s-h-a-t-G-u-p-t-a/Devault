@@ -1,22 +1,38 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
-import { Github, Linkedin, Mail, Twitter, ExternalLink } from "lucide-react"
+import { Github, Linkedin, Mail, Twitter, Copy, Check } from "lucide-react"
 import GitHubProfile from "@/components/GitHubProfile"
-import GitHubRepos from "@/components/GitHubRepos";
-import ProjectList from "@/components/projectlist";
-
+import GitHubRepos from "@/components/GitHubRepos"
+import ProjectList from "@/components/projectlist"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useActiveAccount } from "thirdweb/react"
+import { useState } from "react"
 
 export default function DashboardPage() {
+  const address = useActiveAccount();
+
+  console.log("Wallet Address Object:", address) // Debugging: Log the full object
+  const walletAddress = address?.address || "Not Connected"; // Safely extract address
+
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(walletAddress);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500); // Reset after 1.5s
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex">
         {/* User Profile Section */}
         <div className="p-4">
           <div>
-          <GitHubProfile/>
+            <GitHubProfile />
             <div className="py-2">
               <div className="mt-2 flex space-x-2 py-2">
                 <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
@@ -58,49 +74,32 @@ export default function DashboardPage() {
               </div>
             </div>
           </div>
-          <div className="flex justify-center py-4">
-          <Button className="mt-4 bg-violet-700 hover:bg-violet-600 text-slate-100" asChild>
-            <Link href="/dashboard/crypto-wallet">Crypto Wallet</Link>
-          </Button>
+          <div className="flex flex-col items-center py-4">
+            {/* Styled Wallet Address Display */}
+            <Card className="w-full max-w-md bg-gray-900 shadow-lg rounded-xl border border-gray-700 p-4">
+              <CardHeader>
+                <CardTitle className="text-lg text-violet-400">Wallet Address</CardTitle>
+              </CardHeader>
+              <CardContent className="flex items-center justify-between bg-gray-800 px-4 py-2 rounded-lg">
+                <span className="text-white text-sm font-mono">
+                  {walletAddress !== "Not Connected"
+                    ? `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`
+                    : "Not Connected"}
+                </span>
+                <Button variant="ghost" size="icon" onClick={handleCopy} className="text-gray-400 hover:text-white">
+                  {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                </Button>
+              </CardContent>
+            </Card>
+            <Button className="mt-4 bg-violet-700 hover:bg-violet-600 text-slate-100" asChild>
+              <Link href={`/createcampaign/${walletAddress}`}>
+                Create Campaign
+              </Link>
+            </Button>
           </div>
         </div>
-
-        {/* Issues List Section */}
-        {/* <div className="ml-auto mr-auto">
-          <h2 className="text-xl font-semibold mb-4 text-violet-400">My Projects</h2>
-          <div className="grid grid-cols-3 gap-10">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <Card key={i} className="bg-slate-800 border-violet-700">
-                <CardHeader>
-                  <CardTitle className="text-violet-300">Issue #{i}</CardTitle>
-                  <CardDescription className="text-slate-400">Repository: example/repo</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-slate-300">Recent contribution to issue #{i}</p>
-                  <Button variant="link" className="mt-2 text-violet-400 hover:text-violet-300 p-0" asChild>
-                    <Link href={`/dashboard/issues/${i}`}>
-                      More Info <ExternalLink className="ml-1 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div> */}
-        {/* <GitHubRepos /> */}
         <ProjectList />
-      </div>
-
-      {/* Analytics Placeholder Section */}
-      <div>
-        <h2 className="text-xl font-semibold mb-4 text-violet-400">Analytics</h2>
-        <Card className="bg-slate-800 border-violet-700">
-          <CardContent className="h-[200px] flex items-center justify-center">
-            <p className="text-slate-400">Analytics content coming soon...</p>
-          </CardContent>
-        </Card>
       </div>
     </div>
   )
 }
-

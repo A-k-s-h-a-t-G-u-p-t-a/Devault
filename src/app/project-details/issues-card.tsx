@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
+import { useActiveAccount } from "thirdweb/react"
 
 interface Issue {
   id: number
@@ -19,6 +20,35 @@ interface IssuesCardProps {
 
 export function IssuesCard({ issues }: IssuesCardProps) {
   const router = useRouter();
+  const address = useActiveAccount();
+  const walletAddress = address?.address; 
+
+  // Function to claim an issue
+  const handleClaimIssue = async (owner: string, issueId: number) => {
+    if (!walletAddress) {
+      console.error("Wallet address is missing.");
+      return;
+    }
+
+    try {
+      const apiUrl = `/api/claim-issue/${owner}/${issueId}/${walletAddress}`;
+      
+      const response = await fetch(apiUrl, {
+        method: "POST",
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        console.error("Error claiming issue:", data.error);
+        return;
+      }
+
+      console.log("Issue claimed successfully:", data);
+      alert("Issue claimed successfully!");
+    } catch (error) {
+      console.error("Failed to claim issue:", error);
+    }
+  };
 
   return (
     <Card className="w-full bg-black/50 border-white/10">
@@ -60,7 +90,13 @@ export function IssuesCard({ issues }: IssuesCardProps) {
               </div>
               {/* Buttons Side by Side */}
               <div className="flex gap-2">
-                <Button className="bg-purple text-white hover:bg-purple/90">Claim Issue</Button>
+                <Button
+                  className="bg-purple text-white hover:bg-purple/90"
+                  onClick={() => handleClaimIssue(issue.owner, issue.id)}
+                  disabled={!walletAddress} // Disable if no wallet address
+                >
+                  Claim Issue
+                </Button>
                 <Button
                   className="bg-purple text-white hover:bg-purple/90"
                   onClick={() => router.push(`/issues/${issue.owner}/${issue.repo}/${issue.id}`)}
@@ -75,3 +111,4 @@ export function IssuesCard({ issues }: IssuesCardProps) {
     </Card>
   )
 }
+

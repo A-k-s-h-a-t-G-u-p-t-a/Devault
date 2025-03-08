@@ -1,24 +1,24 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation"; // ✅ Added for navigation
+import { useRouter } from "next/navigation";
 import { client2 } from "@/lib/client";
 import { defineChain, getContract, readContract } from "thirdweb";
 import { useReadContract, useActiveAccount } from "thirdweb/react";
 
 export default function Page() {
-  const router = useRouter(); // ✅ Use Next.js router
+  const router = useRouter();
   const account = useActiveAccount();
 
   const contract = getContract({
     client: client2,
-    chain: defineChain(11155111), // Sepolia Testnet
+    chain: defineChain(11155111),
     address: "0xBb0F165109dAA2007FbeeE6b4a4785984C919E56",
   });
 
   const { data: ownedTokens, isPending: isFetchingTokens } = useReadContract({
     contract,
     method: "function getTokensByOwner(address owner) view returns (address[])",
-    params: [account?.address],
+    params: [account?.address as string],
   });
 
   const [selectedToken, setSelectedToken] = useState<string | null>(null);
@@ -46,7 +46,7 @@ export default function Page() {
           readContract({ contract: tokenContract, method: "function name() view returns (string)", params: [] }),
           readContract({ contract: tokenContract, method: "function symbol() view returns (string)", params: [] }),
           readContract({ contract: tokenContract, method: "function totalSupply() view returns (uint256)", params: [] }),
-          readContract({ contract: tokenContract, method: "function balanceOf(address) view returns (uint256)", params: [account?.address] }),
+          readContract({ contract: tokenContract, method: "function balanceOf(address) view returns (uint256)", params: [account?.address as string] }),
         ]);
 
         setTokenDetails({
@@ -66,44 +66,44 @@ export default function Page() {
   }, [selectedToken, account?.address]);
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-900 text-white">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-black text-white">
       <div className="p-6 bg-gray-800 rounded-lg shadow-lg text-center w-96">
-        <h1 className="text-2xl font-bold mb-4">Your Tokens</h1>
-
+        <h1 className="text-2xl font-bold mb-4 text-purple-400">Your Tokens</h1>
         {isFetchingTokens ? (
           <p className="text-gray-400">Fetching tokens...</p>
         ) : ownedTokens?.length ? (
-          <ul className="mb-4">
-            {ownedTokens.map((token, index) => (
-              <li
-                key={index}
-                className="cursor-pointer text-green-400 hover:text-green-300"
-                onClick={() => setSelectedToken(token)}
-              >
-                {token}
-              </li>
-            ))}
-          </ul>
+          <div className="h-40 overflow-y-auto border border-gray-600 rounded-md p-2">
+            <ul className="space-y-2">
+              {ownedTokens.map((token, index) => (
+                <li
+                  key={index}
+                  className="cursor-pointer text-green-400 hover:text-green-300 bg-gray-700 p-2 rounded-md text-sm truncate"
+                  onClick={() => setSelectedToken(token)}
+                >
+                  {token}
+                </li>
+              ))}
+            </ul>
+          </div>
         ) : (
           <p className="text-gray-400">No tokens found.</p>
         )}
 
         {selectedToken && (
           <div className="mt-4 p-4 bg-gray-700 rounded-lg">
-            <h2 className="text-xl font-bold mb-2">Token Details</h2>
+            <h2 className="text-xl font-bold mb-2 text-purple-400">Token Details</h2>
             {isFetchingDetails ? (
               <p className="text-gray-400">Fetching details...</p>
             ) : (
-              <div className="text-left">
+              <div className="text-left text-sm">
                 <p><strong>Name:</strong> {tokenDetails.name}</p>
                 <p><strong>Symbol:</strong> {tokenDetails.symbol}</p>
                 <p><strong>Total Supply:</strong> {tokenDetails.supply}</p>
                 <p><strong>Your Balance:</strong> {tokenDetails.balance}</p>
               </div>
             )}
-            {/* ✅ Transfer Button with Token Address in URL */}
             <button
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-400 transition"
+              className="mt-4 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-500 transition"
               onClick={() => router.push(`/token/transfer/${selectedToken}`)}
             >
               Transfer Token
