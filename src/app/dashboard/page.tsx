@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Github, Linkedin, Mail, Twitter, ExternalLink } from "lucide-react"
 import GitHubProfile from "@/components/GitHubProfile"
 import GitHubRepos from "@/components/GitHubRepos";
+import ProjectList from "@/components/projectlist";
 
 
 import { Button } from "@/components/ui/button"
@@ -87,6 +88,7 @@ export default function DashboardPage() {
           </div>
         </div> */}
         {/* <GitHubRepos /> */}
+        <ProjectList />
       </div>
 
       {/* Analytics Placeholder Section */}
