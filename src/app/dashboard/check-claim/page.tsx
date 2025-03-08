@@ -8,8 +8,7 @@ interface ClaimedIssue {
   walletAddress: string;
   issueId: string;
   user: {
-    username: string;
-    githubId: string;
+    username: string; // Removed githubId
   };
 }
 
@@ -56,7 +55,7 @@ export default function CheckClaim() {
             </CardHeader>
             <CardContent>
               <p>
-                <strong>Claimed By:</strong> {issue.user.username} ({issue.user.githubId})
+                <strong>Claimed By:</strong> {issue.user.username}
               </p>
               <p>
                 <strong>Wallet Address:</strong> {issue.walletAddress}
