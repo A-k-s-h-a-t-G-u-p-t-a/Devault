@@ -13,9 +13,6 @@ interface ClaimedIssue {
   };
 }
 
-// Custom Separator Component (Optional)
-const Divider = () => <div className="border-t border-gray-300 my-2" />;
-
 export default function CheckClaim() {
   const [claimedIssues, setClaimedIssues] = useState<ClaimedIssue[]>([]);
   const [loading, setLoading] = useState(true);
@@ -23,13 +20,18 @@ export default function CheckClaim() {
   useEffect(() => {
     async function fetchClaimedIssues() {
       try {
+        console.log("🔹 Fetching claimed issues...");
         const res = await fetch("/api/dashboard/check-claim");
+
+        console.log("🔹 API Response Status:", res.status);
         if (!res.ok) throw new Error("Failed to fetch claims");
 
         const data = await res.json();
+        console.log("✅ Fetched Claimed Issues:", data);
+
         setClaimedIssues(data.claimedIssues);
       } catch (error) {
-        console.error(error);
+        console.error("🚨 Error fetching claims:", error);
       } finally {
         setLoading(false);
       }
@@ -59,7 +61,6 @@ export default function CheckClaim() {
               <p>
                 <strong>Wallet Address:</strong> {issue.walletAddress}
               </p>
-              <Divider /> {/* Custom divider instead of Separator */}
             </CardContent>
           </Card>
         ))
