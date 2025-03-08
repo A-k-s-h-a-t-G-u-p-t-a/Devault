@@ -22,3 +22,9 @@ import {
     chain: defineChain(11155111),
     address: "0xBb0F165109dAA2007FbeeE6b4a4785984C919E56",
   });
+  export const contract3 = getContract({
+    client: client2,
+    chain: defineChain(11155111),
+    address: "0x1B1a40b5bE3AC3495F9536581d3C9aE887dBeb61",
+    
+});
