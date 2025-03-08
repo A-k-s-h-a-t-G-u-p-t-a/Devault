@@ -79,7 +79,9 @@ export default function ProjectPage() {
               id: issue.id,
               title: issue.title,
               status: issue.state,
-              priority: issue.labels.some(label => label.name === "high-priority") ? "high" : "medium"
+              priority: issue.labels.some(label => label.name === "high-priority") ? "high" : "medium",
+              owner:owner,
+              repo:repo
             }))}
           />
         )}

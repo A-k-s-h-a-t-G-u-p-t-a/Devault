@@ -1,12 +1,16 @@
+"use client"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation"
 
 interface Issue {
   id: number
   title: string
   status: "open" | "closed"
   priority: "low" | "medium" | "high"
+  owner: string
+  repo: string
 }
 
 interface IssuesCardProps {
@@ -14,6 +18,8 @@ interface IssuesCardProps {
 }
 
 export function IssuesCard({ issues }: IssuesCardProps) {
+  const router = useRouter();
+
   return (
     <Card className="w-full bg-black/50 border-white/10">
       <CardHeader>
@@ -52,7 +58,16 @@ export function IssuesCard({ issues }: IssuesCardProps) {
                   </Badge>
                 </div>
               </div>
-              <Button className="bg-purple text-white hover:bg-purple/90">Claim Issue</Button>
+              {/* Buttons Side by Side */}
+              <div className="flex gap-2">
+                <Button className="bg-purple text-white hover:bg-purple/90">Claim Issue</Button>
+                <Button
+                  className="bg-purple text-white hover:bg-purple/90"
+                  onClick={() => router.push(`/issues/${issue.owner}/${issue.repo}/${issue.id}`)}
+                >
+                  AI Assistance
+                </Button>
+              </div>
             </div>
           ))}
         </div>
