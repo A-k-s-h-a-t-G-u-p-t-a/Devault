@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Search, Menu } from "lucide-react";
 import { ConnectButton } from "thirdweb/react";
 import { client } from "@/lib/client";
+import Image from "next/image";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export default function Navbar() {
@@ -13,7 +14,8 @@ export default function Navbar() {
     <nav className="bg-gray-900 text-white p-4 shadow-lg sticky top-0 w-full z-50">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
-        <div className="text-2xl font-extrabold tracking-wide">
+        <div className="text-2xl font-extrabold tracking-wide flex">
+        <Image src="/assets/logo3.png" alt="Devault Logo" width={40} height={40} className="mr-2" />
           <a href="/home" className="hover:text-gray-400 transition duration-300">Devault</a>
         </div>
 
