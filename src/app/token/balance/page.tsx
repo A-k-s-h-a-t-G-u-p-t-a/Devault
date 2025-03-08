@@ -18,7 +18,7 @@ export default function Page() {
   const { data: ownedTokens, isPending: isFetchingTokens } = useReadContract({
     contract,
     method: "function getTokensByOwner(address owner) view returns (address[])",
-    params: [account?.address],
+    params: [account?.address as string],
   });
 
   const [selectedToken, setSelectedToken] = useState<string | null>(null);
@@ -46,7 +46,7 @@ export default function Page() {
           readContract({ contract: tokenContract, method: "function name() view returns (string)", params: [] }),
           readContract({ contract: tokenContract, method: "function symbol() view returns (string)", params: [] }),
           readContract({ contract: tokenContract, method: "function totalSupply() view returns (uint256)", params: [] }),
-          readContract({ contract: tokenContract, method: "function balanceOf(address) view returns (uint256)", params: [account?.address] }),
+          readContract({ contract: tokenContract, method: "function balanceOf(address) view returns (uint256)", params: [account?.address as string] }),
         ]);
 
         setTokenDetails({
