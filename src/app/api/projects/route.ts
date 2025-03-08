@@ -1,31 +1,29 @@
-import { NextRequest, NextResponse } from "next/server";
-import { currentUser } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+import { currentUser } from "@clerk/nextjs/server";
 
 const prisma = new PrismaClient();
 
-export async function GET(req: NextRequest) {
-  const user = await currentUser(); // Get logged-in user
-
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
+export async function GET() {
   try {
-    const projects = await prisma.project.findMany({
-      where: { ownerId: user.id }, // Ensure this is the correct format
-      select: {
-        id: true,
-        title: true,
-        githubRepoUrl: true,
-        description: true,
-        currentFunding: true,
-      },
+    const user = await currentUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Fetch user from DB using Clerk's `user.id`
+    const dbUser = await prisma.user.findUnique({
+      where: { userId: user.id },
+      include: { projects: true },
     });
 
-    return NextResponse.json(projects);
+    if (!dbUser) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(dbUser.projects);
   } catch (error) {
-    console.error("Database error:", error);
-    return NextResponse.json({ error: "Failed to fetch projects" }, { status: 500 });
+    console.error("Error fetching projects:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
