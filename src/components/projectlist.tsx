@@ -8,6 +8,7 @@ interface Project {
   description?: string;
   fundingGoal?: number;
   currentFunding?: number;
+  githubRepoUrl?: string;
 }
 
 export default function ProjectList() {
@@ -40,12 +41,18 @@ export default function ProjectList() {
       {projects.map((project) => (
         <div
           key={project.id}
-          className="bg-gray-900 text-white p-6 rounded-xl shadow-lg border border-gray-700 transition-transform hover:scale-105"
+          className="bg-gray-900 text-white p-6 rounded-xl shadow-lg border border-gray-700 transition-transform hover:scale-105 flex flex-col justify-between h-full min-h-[320px]"
         >
+          {/* Title */}
           <h2 className="text-xl font-bold">{project.title}</h2>
-          <p className="text-gray-400 mt-2">{project.description || "No description provided."}</p>
-          
-          <div className="mt-4">
+
+          {/* Description with flex-grow to balance layout */}
+          <p className="text-gray-400 mt-2 flex-grow">
+            {project.description || "No description provided."}
+          </p>
+
+          {/* Funding details */}
+          <div>
             <p className="text-sm text-gray-300">
               <span className="font-semibold">Goal:</span> {project.fundingGoal ?? 0} ETH
             </p>
@@ -63,9 +70,19 @@ export default function ProjectList() {
             </p>
           </div>
 
-          <button className="mt-4 w-full bg-purple-600 hover:bg-purple-500 text-white font-semibold py-2 rounded-lg transition">
-            View Project →
-          </button>
+          {/* View Project Button */}
+          {project.githubRepoUrl ? (
+            <a
+              href={project.githubRepoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 block w-full text-center bg-purple-600 hover:bg-purple-500 text-white font-semibold py-2 rounded-lg transition"
+            >
+              View Project →
+            </a>
+          ) : (
+            <p className="mt-4 text-sm text-gray-500">No repository available</p>
+          )}
         </div>
       ))}
     </div>
