@@ -2,6 +2,7 @@ import type React from "react"
 import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Link } from "lucide-react"
 
 interface FundingStatsProps {
   amountRaised: number
@@ -51,7 +52,9 @@ export function FundingStats({ amountRaised, fundingGoal, roundStatus, equityOff
           VC Investment
         </Button>
         <Button variant="outline" className="w-full border-purple text-purple hover:bg-purple/10">
+          <Link href="/campaigns">
           Crowdfunding
+          </Link>
         </Button>
         <Button variant="outline" className="w-full border-purple text-purple hover:bg-purple/10">
           Follow

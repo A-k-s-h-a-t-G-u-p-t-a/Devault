@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 
 interface Issue {
   id: number
@@ -51,6 +52,7 @@ export function IssuesCard({ issues }: IssuesCardProps) {
                   </Badge>
                 </div>
               </div>
+              <Button className="bg-purple text-white hover:bg-purple/90">Claim Issue</Button>
             </div>
           ))}
         </div>
@@ -58,4 +60,3 @@ export function IssuesCard({ issues }: IssuesCardProps) {
     </Card>
   )
 }
-

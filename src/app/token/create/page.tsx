@@ -5,7 +5,7 @@ import { Card, CardContent } from "../../../components/ui/card";
 import { Input } from "../../../components/ui/input";
 import { useActiveAccount, useSendTransaction, useReadContract } from "thirdweb/react";
 import { defineChain, getContract, prepareContractCall } from "thirdweb";
-import { client2 } from "@/lib/client";
+import { client2 } from "../../../lib/client";
 
 export default function CreateToken() {
   const wallet = useActiveAccount();

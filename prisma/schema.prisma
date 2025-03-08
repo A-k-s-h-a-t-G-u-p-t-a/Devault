@@ -10,15 +10,17 @@ datasource db {
 
 model User {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  username     String?
+  userId      String    @unique
+  username     String?   @unique
   email        String    @unique
   photo       String?     
   passwordHash String
-  githubId     String?
+  githubId     String?  @unique
   role         Boolean?
-  projects     Project[] @relation("UserProjects")
-  discussions  Discussion[] @relation("UserDiscussions")
-  replies      Reply[]       @relation("UserReplies")
+  createdAt    DateTime? @default(now())
+  updatedAt    DateTime? @updatedAt
+
+  projects     Project[] @relation("UserProjects") 
 }
 
 model Project {
@@ -36,7 +38,6 @@ model Project {
 
   owner          User     @relation(fields: [ownerId], references: [id], name: "UserProjects")
   issues         Issue[]  @relation("ProjectIssues")
-  discussions    Discussion[] @relation("ProjectDiscussions")
 }
 
 model Issue {
@@ -53,29 +54,3 @@ model Issue {
   project       Project  @relation(fields: [projectId], references: [id], name: "ProjectIssues")
 }
 
-model Discussion {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  projectId   String   @db.ObjectId
-  userId      String   @db.ObjectId
-  title       String
-  content     String
-  category    String   // "codebase", "issues", "governance", "general"
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  project     Project  @relation(fields: [projectId], references: [id], name: "ProjectDiscussions")
-  user        User     @relation(fields: [userId], references: [id], name: "UserDiscussions")
-  replies     Reply[]  @relation("DiscussionReplies")
-}
-
-model Reply {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  discussionId  String   @db.ObjectId
-  userId        String   @db.ObjectId
-  content       String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  discussion    Discussion  @relation(fields: [discussionId], references: [id], name: "DiscussionReplies")
-  user         User        @relation(fields: [userId], references: [id], name: "UserReplies")
-}

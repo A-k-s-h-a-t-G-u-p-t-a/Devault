@@ -1,6 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Github, Linkedin, Mail, Twitter, ExternalLink } from "lucide-react"
+import GitHubProfile from "@/components/GitHubProfile"
+import GitHubRepos from "@/components/GitHubRepos";
+
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -12,18 +15,8 @@ export default function DashboardPage() {
         {/* User Profile Section */}
         <div className="p-4">
           <div>
-            <div className="flex justify-center">
-                <Image
-                src="/user.png?height=100&width=100"
-                alt="User Avatar"
-                width={100}
-                height={100}
-                className="rounded-full"
-                />
-            </div>
+          <GitHubProfile/>
             <div className="py-2">
-              <h1 className="text-2xl font-bold text-violet-400 text-center">John Doe</h1>
-              <p className="text-slate-400 text-center">@johndoe</p>
               <div className="mt-2 flex space-x-2 py-2">
                 <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
                   <Button
@@ -72,8 +65,8 @@ export default function DashboardPage() {
         </div>
 
         {/* Issues List Section */}
-        <div className="ml-auto mr-auto">
-          <h2 className="text-xl font-semibold mb-4 text-violet-400">My Issues</h2>
+        {/* <div className="ml-auto mr-auto">
+          <h2 className="text-xl font-semibold mb-4 text-violet-400">My Projects</h2>
           <div className="grid grid-cols-3 gap-10">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <Card key={i} className="bg-slate-800 border-violet-700">
@@ -92,7 +85,8 @@ export default function DashboardPage() {
               </Card>
             ))}
           </div>
-        </div>
+        </div> */}
+        {/* <GitHubRepos /> */}
       </div>
 
       {/* Analytics Placeholder Section */}
