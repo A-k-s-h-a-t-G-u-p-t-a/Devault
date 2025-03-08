@@ -15,7 +15,7 @@ export default function DashboardPage() {
         {/* User Profile Section */}
         <div className="p-4">
           <div>
-          <GitHubProfile username="Armaan2906" />
+          <GitHubProfile/>
             <div className="py-2">
               <div className="mt-2 flex space-x-2 py-2">
                 <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
@@ -86,7 +86,7 @@ export default function DashboardPage() {
             ))}
           </div>
         </div> */}
-        <GitHubRepos username="Armaan2906" />
+        {/* <GitHubRepos /> */}
       </div>
 
       {/* Analytics Placeholder Section */}
