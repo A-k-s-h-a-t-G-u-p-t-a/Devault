@@ -57,6 +57,7 @@ model Issue {
 
 model ClaimIssue{
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String   
   walletAddress String
   issueId       String   
   owner         String  
