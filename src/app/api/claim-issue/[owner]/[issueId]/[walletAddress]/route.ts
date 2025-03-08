@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+import { auth } from "@clerk/nextjs/server";
 
 const prisma = new PrismaClient(); // ✅ Instantiate Prisma client once
 
@@ -8,22 +9,21 @@ export async function POST(
   { params }: { params: { owner: string; issueId: string; walletAddress: string } }
 ) {
   try {
+    const { userId } = await auth();
     console.log("Received Params:", params);
 
-    const { owner, issueId, walletAddress } = params; // Extract params from route
+    const { owner, issueId, walletAddress } = params;
 
     if (!walletAddress || !issueId || !owner) {
       return NextResponse.json({ error: "Missing required parameters" }, { status: 400 });
     }
 
-    // Ensure issueId is a string (Prisma expects ObjectId as a string)
     const issueIdStr = String(issueId);
 
-    // ✅ Check if the issue has already been claimed
     const existingClaim = await prisma.claimIssue.findFirst({
       where: {
         walletAddress,
-        issueId: issueIdStr, // Ensure type consistency
+        issueId: issueIdStr,
       },
     });
 
@@ -31,12 +31,16 @@ export async function POST(
       console.log("Issue already claimed:", existingClaim);
       return NextResponse.json({ error: "Issue already claimed" }, { status: 400 });
     }
+    if (!userId) {
+      console.log("User ID is missing");
+      return NextResponse.json({ error: "User ID is missing" }, { status: 401 });
+    }
 
-    // ✅ Create a new claim entry
     const claimData = {
       walletAddress,
       issueId: issueIdStr,
       owner,
+      userId,
     };
     console.log("Creating Claim:", claimData);
 
