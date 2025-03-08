@@ -37,7 +37,7 @@ model Project {
   updatedAt      DateTime @updatedAt
 
   owner          User     @relation(fields: [ownerId], references: [id], name: "UserProjects")
-  issues         Issue[]  @relation("ProjectIssues") 
+  issues         Issue[]  @relation("ProjectIssues")
 }
 
 model Issue {
@@ -53,3 +53,4 @@ model Issue {
 
   project       Project  @relation(fields: [projectId], references: [id], name: "ProjectIssues")
 }
+
