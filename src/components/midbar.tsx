@@ -9,8 +9,7 @@ import { cn } from "@/lib/utils" // If using shadcn's utility for class manageme
 
 const navItems = [
   { name: "Overview", href: "/dashboard", icon: Home },
-  { name: "Issues", href: "/dashboard/issues", icon: FileText },
-  { name: "Wallet", href: "/dashboard/wallet", icon: Wallet },
+  { name: "Wallet", href: "/token/transfer", icon: Wallet },
   { name: "Analytics", href: "/dashboard/analytics", icon: BarChart },
 ]
 
