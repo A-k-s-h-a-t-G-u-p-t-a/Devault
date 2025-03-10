@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Devault – The Future of Open-Source Collaboration & Investment  
 
-## Getting Started
+Devault is a **Web3-powered** platform that transforms open-source contributions into **long-term investments** instead of one-time rewards. With **custom Solidity smart contracts** deployed on **Thirdweb**, contributors can **earn, trade, and govern projects** like never before.  
 
-First, run the development server:
+## 🌟 Features  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 🔹 **Project Tokenization**  
+- Projects can issue **ERC-20 tokens** to reward contributors.  
+- Tokens can be **transferred, traded, and used in governance**.  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🔹 **On-Chain & Off-Chain Governance**  
+- Token holders **vote** on project decisions, ensuring **decentralized** management.  
+- **Off-chain voting** for lightweight decision-making.  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🔹 **GitHub API Integration**  
+- Automatically tracks **PRs, issues, and commits**.  
+- Contributions are **validated** and rewarded seamlessly.  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🔹 **AI-Powered Contributor Onboarding**  
+- Integrated **Gemini 2.0** provides **step-by-step** repo setup instructions.  
+- **New contributors** get instant guidance on contributing.  
 
-## Learn More
+### 🔹 **Built-in Crowdfunding**  
+- Projects can raise **funds directly** from backers.  
+- Crowdfunded projects **reward contributors** with governance tokens.  
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠 Tech Stack  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Tech       | Usage |
+|------------|--------------------------------|
+| **Next.js 15**  | Frontend framework |
+| **React 19**  | UI development |
+| **Tailwind CSS** | Styling |
+| **Prisma & MongoDB** | Database & ORM |
+| **Thirdweb** | Smart contract deployment & interaction |
+| **Solidity** | Custom smart contract development |
+| **GitHub API** | Contribution tracking |
+| **Gemini 2.0** | AI-powered onboarding |
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📝 Smart Contracts  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+We wrote and deployed **custom Solidity smart contracts** using **Thirdweb** for:  
+- **ERC-20 token creation** (per project)  
+- **Governance & voting**  
+- **Crowdfunding**  
+
+🔗 **Deployed Contracts**:  
+- **Token Factory:** `[Contract Address]`  
+- **Governance Contract:** `[Contract Address]`  
+- **Crowdfunding Contract:** `[Contract Address]`  
+
+---
+
+## 🚀 Getting Started  
+
+### 1️⃣ Clone the Repo  
+```sh
+git clone [Repo Link]
+cd Devault
